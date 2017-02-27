@@ -1,0 +1,10 @@
+---
+npm:
+  global_packages:
+    - pm2
+    - bower
+    - eslint
+    - webpack
+    - karma
+    - grunt-cli
+    - yo

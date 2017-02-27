@@ -1,0 +1,4 @@
+---
+- name: Install app-specific npm modules
+  npm:
+    path: /vagrant/

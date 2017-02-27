@@ -1,0 +1,16 @@
+---
+- name: install standard packages
+  apt: name={{ item }} state=latest update_cache=yes cache_valid_time=7200
+  with_items: "{{ standard_packages }}" 
+  
+- name: install ruby sass gem
+  gem: name=sass state=present
+
+- name: Change timezone to Europe/Istanbul
+  command: timedatectl set-timezone Europe/Istanbul
+
+- include: gitconfig.yml
+  become_user: vagrant
+
+- include: environment.yml
+  become_user: vagrant

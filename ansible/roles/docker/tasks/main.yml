@@ -1,0 +1,26 @@
+- name: Add docker apt-key
+  apt_key: keyserver=hkp://p80.pool.sks-keyservers.net:80 id=58118E89F3A912897C070ADBF76221572C52609D state=present
+
+- name: Create docker source file
+  file: path=/etc/apt/sources.list.d/docker.list state=touch
+
+- name: Add entry
+  lineinfile: dest=/etc/apt/sources.list.d/docker.list state=present line="deb https://apt.dockerproject.org/repo ubuntu-trusty main"
+
+- name: Update cache
+  apt: update_cache=yes
+
+- name: Install docker-engine
+  apt: name=docker-engine=1.9.1-0~trusty state=present
+
+- name: Modify DOCKER_OPTS for no_proxy
+  lineinfile: dest=/etc/default/docker state=present line='export no_proxy="localhost"'
+
+- name: Modify DOCKER_OPTS
+  lineinfile: dest=/etc/default/docker state=present line='DOCKER_OPTS="-H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375'
+
+- name: Restart docker daemon with new options
+  service: name=docker state=restarted
+
+- name: Install docker-compose
+  get_url: url=https://github.com/docker/compose/releases/download/1.5.2/docker-compose-Linux-x86_64 dest=/usr/local/bin/docker-compose mode="a+x"

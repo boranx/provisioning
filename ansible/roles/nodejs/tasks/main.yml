@@ -1,0 +1,16 @@
+---
+- include: node.install.yml
+
+- name: Create configuration folder
+  file: path=/usr/etc state=directory owner=root group=root
+
+- name: Copy NPM configuration file
+  template: src=npmrc.j2 dest=/usr/etc/npmrc mode=666
+
+- include: npm.install_global.yml
+
+- name: downloads hidden dependency for PhantomJS (libfontconfig)
+  apt: name=libfontconfig state=present
+
+- name: node_modules folder creating at home folder
+  file: path=/home/vagrant/node_modules state=directory owner=vagrant group=vagrant

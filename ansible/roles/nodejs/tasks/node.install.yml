@@ -1,0 +1,19 @@
+---
+- name: Download node.js v5.x
+  shell: curl --location https://deb.nodesource.com/setup_5.x | sudo bash -
+  when: nodejs_version == "5.x"
+
+- name: Download node.js v4.x
+  shell: curl --location https://deb.nodesource.com/setup_4.x | sudo bash -
+  when: nodejs_version == "4.x"
+
+- name: Download node.js v0.12
+  shell: curl --location https://deb.nodesource.com/setup_0.12 | sudo bash -
+  when: nodejs_version == "0.12"
+
+- name: Downloade node.js v0.10
+  shell: curl --location https://deb.nodesource.com/setup_0.10 | sudo bash -
+  when: nodejs_version == "0.10"
+
+- name: Install node.js package
+  apt: name=nodejs state=present

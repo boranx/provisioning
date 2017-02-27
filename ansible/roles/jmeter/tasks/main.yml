@@ -1,0 +1,19 @@
+- name : Apt-Get jmeter
+  apt : name=jmeter state=latest
+
+- name : Download JMeter Standard Plugin
+  get_url: url={{ jmeter_standard_plugin_url }} dest=/tmp
+  register: standard_plugin_downlad
+
+- name: Extract  JMeter Standard Plugin
+  unarchive: src=/tmp/{{jmeter_standard_plugin_filename}} dest=/usr/share/jmeter copy=no
+  when : standard_plugin_downlad.changed
+
+- name : Download JMeter Extras Plugin
+  get_url: url={{ jmeter_extras_plugin_url }} dest=/tmp
+  register: extras_plugin_downlad
+
+- name: Extract  JMeter Extras Plugin
+  unarchive: src=/tmp/{{jmeter_extras_plugin_filename}} dest=/usr/share/jmeter copy=no
+  when : extras_plugin_downlad.changed
+

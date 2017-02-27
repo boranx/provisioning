@@ -1,0 +1,10 @@
+---
+- lineinfile: dest=~/.profile line="export no_proxy='localhost'"
+- lineinfile: dest=~/.profile line="export DOCKER_HOST=localhost:2375"
+- lineinfile: dest=~/.profile line="alias b='./build.sh'"
+- lineinfile: dest=~/.profile line="alias r='./run.sh'"
+
+- name: Source the profile file
+  shell: source ~/.profile
+  args:
+    executable: "/bin/bash"

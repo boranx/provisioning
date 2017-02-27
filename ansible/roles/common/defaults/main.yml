@@ -1,0 +1,23 @@
+---
+standard_packages:
+  - pkg-config
+  - build-essential
+  - git-core
+  - curl
+  - wget
+  - tree
+  - git
+  - tig
+  - vim
+  - gdb
+  - cgdb
+  - bash-completion # Not included in the docker image
+  - make
+  - tree
+  - htop
+  - tmux
+  - man-db
+  - alien
+  - chromium-browser
+  - xvfb
+  - unzip
