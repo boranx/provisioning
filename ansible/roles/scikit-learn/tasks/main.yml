@@ -1,0 +1,12 @@
+---
+- name: install python packages
+  apt: name={{ item }} state=latest update_cache=yes cache_valid_time=7200
+  with_items: "{{ standard_packages }}"
+
+- name: Upgrade pip
+  pip:
+    name: pip
+    extra_args: --upgrade
+
+- name: install scikit-learn via pip
+  pip: name=scikit-learn state=present

@@ -2,6 +2,7 @@
 - hosts: all
   become: yes
   roles:
+    - scikit-learn
     - docker
     - nodejs
     - common
