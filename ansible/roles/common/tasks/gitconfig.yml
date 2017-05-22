@@ -8,3 +8,4 @@
 - git_config: name=alias.recent scope=global value='log -5 --stat HEAD'
 - git_config: name=alias.unstage scope=global value='reset HEAD --'
 - git_config: name=alias.pr scope=global value='pull --rebase'
+- git_config: name=credential.helper scope=global value='cache --timeout=30000'
