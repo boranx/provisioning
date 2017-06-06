@@ -1,0 +1,27 @@
+---
+- name: .NET | Install dependencies
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - "libicu"
+    - "libunwind"
+    - "libicu-devel"
+    - "libunwind-devel"
+
+- name: .NET | Create directory
+  file: path=/usr/local/dotnet state=directory mode=0755
+
+- name: .NET | Install .NET SDK/Runtime
+  unarchive:
+    src: "{{ dotnet_rhel_url }}"
+    dest: "/usr/local/dotnet"
+    owner: root
+    group: root
+    remote_src: true
+
+- name: .NET | Add dotnet symlink.
+  file:
+    src: "/usr/local/dotnet/dotnet"
+    dest: "/usr/bin/dotnet"
+    state: link

@@ -1,0 +1,36 @@
+---
+- name: .NET | Make sure HTTPS is supported by apt
+  package:
+    name: apt-transport-https
+    state: latest
+    update_cache: true
+
+- name: .NET | Add repo for Ubuntu Trusty
+  apt_repository:
+    repo: deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ trusty main
+    state: present
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "14"
+
+- name: .NET | Add repo for Ubuntu Xenial
+  apt_repository:
+    repo: deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main
+    state: present
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "16"
+
+- name: .NET | Add apt key
+  apt_key: keyserver=apt-mo.trafficmanager.net id=417A0893
+  register: result
+  until: '"failed" not in result'
+  retries: 3
+  delay: 5
+
+- name: .NET | Install dotnet core SDK
+  package:
+    name: "{{ dotnet_ubuntu_package }}"
+    state: latest
+    update_cache: true
+  register: result
+  until: '"failed" not in result'
+  retries: 3
+  delay: 5
+
